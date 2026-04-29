@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RYDE — The Journey</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+    theme: { extend: {
+      colors: {
+        ryde: { black:'#050505', ink:'#0c0c0c', bone:'#f5f1ea', gold:'#B8860B', goldlight:'#e3b465', golddark:'#7a5a08' }
+      },
+      fontFamily: { display:['"Archivo Black"','sans-serif'], body:['Manrope','sans-serif'] }
+    }}
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family:'Manrope',sans-serif; background:#050505; color:#f5f1ea; -webkit-font-smoothing:antialiased; }
+  .font-display { font-family:'Archivo Black',sans-serif; letter-spacing:-0.02em; }
+  .gold-gradient { background:linear-gradient(135deg,#e3b465 0%,#B8860B 45%,#7a5a08 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .gold-bg { background:linear-gradient(135deg,#e3b465 0%,#B8860B 50%,#7a5a08 100%); }
+
+  .grain::before { content:''; position:fixed; inset:0; pointer-events:none; opacity:0.04; z-index:1;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+
+  .hero-glow { background: radial-gradient(ellipse at center, rgba(184,134,11,0.18) 0%, rgba(184,134,11,0) 60%); }
+
+  @keyframes riseIn { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+  .rise { opacity:0; animation: riseIn 1s cubic-bezier(0.2,0.8,0.2,1) forwards; }
+  .delay-1{animation-delay:0.1s}.delay-2{animation-delay:0.3s}.delay-3{animation-delay:0.5s}
+
+  .cta-shine { position:relative; overflow:hidden; }
+  .cta-shine::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent); transition:left 0.6s; }
+  .cta-shine:hover::after { left:100%; }
+
+  .section-num { font-family:'Archivo Black',sans-serif; color:rgba(184,134,11,0.35); }
+
+  .timeline-dot {
+    width: 12px; height: 12px; border-radius: 50%;
+    background: linear-gradient(135deg,#e3b465 0%,#B8860B 50%,#7a5a08 100%);
+    box-shadow: 0 0 0 4px rgba(184,134,11,0.15);
+  }
+
+  .mobile-menu { transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1); }
+  .mobile-menu.closed { transform: translateY(-100%); }
+
+  /* Pull quote */
+  .pull-quote {
+    border-left: 2px solid #B8860B;
+    padding-left: 2rem;
+  }
+</style>
+</head>
+<body class="grain overflow-x-hidden">
+
+<!-- ============ NAV ============ -->
+<header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-ryde-black/60 border-b border-white/5">
+  <nav class="max-w-7xl mx-auto px-5 md:px-10 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2">
+      <img src="logo.png" alt="RYDE" class="h-12 md:h-14 w-auto" />
+    </a>
+    <ul class="hidden md:flex items-center gap-10 text-[13px] uppercase tracking-[0.18em] font-medium">
+      <li><a href="index.html" class="text-ryde-bone/70 hover:text-ryde-goldlight transition">Home</a></li>
+      <li><a href="product.html" class="text-ryde-bone/70 hover:text-ryde-goldlight transition">Shop</a></li>
+      <li><a href="aboutus.html" class="text-ryde-bone hover:text-ryde-goldlight transition">Journey</a></li>
+      <li><a href="contact.html" class="text-ryde-bone/70 hover:text-ryde-goldlight transition">Contact</a></li>
+    </ul>
+    <a href="product.html" class="hidden md:inline-flex cta-shine items-center gap-2 px-5 py-2.5 border border-ryde-gold/60 text-ryde-goldlight text-xs uppercase tracking-[0.2em] font-semibold hover:bg-ryde-gold hover:text-ryde-black transition">
+      Shop <span aria-hidden="true">→</span>
+    </a>
+    <button id="menuBtn" aria-label="Menu" class="md:hidden text-ryde-bone p-2">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18M3 17h18"/></svg>
+    </button>
+  </nav>
+  <div id="mobileMenu" class="mobile-menu closed md:hidden absolute top-full left-0 right-0 bg-ryde-black border-b border-white/5">
+    <ul class="flex flex-col px-5 py-6 gap-5 text-sm uppercase tracking-[0.2em]">
+      <li><a href="index.html" class="block py-1">Home</a></li>
+      <li><a href="product.html" class="block py-1">Shop</a></li>
+      <li><a href="aboutus.html" class="block py-1">Journey</a></li>
+      <li><a href="contact.html" class="block py-1">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="relative pt-40 pb-20 md:pt-52 md:pb-28 px-5 md:px-10 overflow-hidden">
+  <div class="hero-glow absolute inset-0"></div>
+  <div class="relative z-10 max-w-6xl mx-auto">
+    <p class="rise delay-1 text-[11px] uppercase tracking-[0.4em] text-ryde-goldlight mb-6">The Journey</p>
+    <h1 class="rise delay-2 font-display text-6xl md:text-9xl leading-[0.85] mb-8 max-w-5xl">
+      Candy, <span class="gold-gradient italic">reconsidered.</span>
+    </h1>
+    <p class="rise delay-3 text-xl md:text-2xl font-light text-ryde-bone/70 max-w-2xl leading-relaxed">
+      We didn't set out to reinvent the wheel. We set out to make the wheel taste better.
+    </p>
+  </div>
+</section>
+
+<!-- ============ STORY ============ -->
+<section class="py-20 md:py-28 px-5 md:px-10">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-12 gap-10 md:gap-16">
+    <aside class="md:col-span-4">
+      <p class="section-num text-7xl md:text-8xl mb-3">01</p>
+      <p class="text-xs uppercase tracking-[0.3em] text-ryde-goldlight">The why</p>
+    </aside>
+
+    <div class="md:col-span-8 space-y-8 text-lg md:text-xl font-light text-ryde-bone/80 leading-relaxed">
+      <p>
+        Most candy hasn't really changed in fifty years. Same wax. Same neon dyes. Same five-syllable preservatives nobody can pronounce. The packaging gets a refresh every decade or two, but underneath — same product.
+      </p>
+      <p>
+        We started RYDE because the standard had drifted. Coffee got better. Chocolate got better. Even gum got better. Candy stayed stuck in 1978.
+      </p>
+      <div class="pull-quote">
+        <p class="font-display text-2xl md:text-3xl leading-tight gold-gradient">
+          "We wanted candy that didn't apologize for itself."
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TIMELINE ============ -->
+<section class="py-20 md:py-28 px-5 md:px-10 bg-ryde-ink border-y border-white/5">
+  <div class="max-w-6xl mx-auto">
+    <p class="section-num text-7xl md:text-8xl mb-3">02</p>
+    <p class="text-xs uppercase tracking-[0.3em] text-ryde-goldlight mb-4">The build</p>
+    <h2 class="font-display text-4xl md:text-6xl mb-16 leading-[0.95] max-w-3xl">
+      How we got <span class="gold-gradient">here.</span>
+    </h2>
+
+    <div class="space-y-12 md:space-y-16 relative">
+      <div class="absolute left-[5px] md:left-[5px] top-2 bottom-2 w-px bg-gradient-to-b from-ryde-gold via-ryde-gold/30 to-transparent"></div>
+
+      <div class="grid md:grid-cols-12 gap-6 relative">
+        <div class="md:col-span-3 flex md:block items-center gap-4">
+          <span class="timeline-dot shrink-0"></span>
+          <p class="font-display text-2xl md:text-3xl gold-gradient md:ml-6">2024</p>
+        </div>
+        <div class="md:col-span-9 md:pl-6">
+          <h3 class="text-xl md:text-2xl font-semibold mb-2">The kitchen experiments</h3>
+          <p class="text-ryde-bone/70 font-light leading-relaxed max-w-2xl">
+            A garage. A candy thermometer. Forty-seven failed batches of chewy citrus. One that finally worked. We knew we had something.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-12 gap-6 relative">
+        <div class="md:col-span-3 flex md:block items-center gap-4">
+          <span class="timeline-dot shrink-0"></span>
+          <p class="font-display text-2xl md:text-3xl gold-gradient md:ml-6">2025</p>
+        </div>
+        <div class="md:col-span-9 md:pl-6">
+          <h3 class="text-xl md:text-2xl font-semibold mb-2">The brand takes shape</h3>
+          <p class="text-ryde-bone/70 font-light leading-relaxed max-w-2xl">
+            We named it RYDE. We picked our colors — black, bone, a single line of gold. We refused to look like anything else on the shelf.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-12 gap-6 relative">
+        <div class="md:col-span-3 flex md:block items-center gap-4">
+          <span class="timeline-dot shrink-0"></span>
+          <p class="font-display text-2xl md:text-3xl gold-gradient md:ml-6">2026</p>
+        </div>
+        <div class="md:col-span-9 md:pl-6">
+          <h3 class="text-xl md:text-2xl font-semibold mb-2">The first drop</h3>
+          <p class="text-ryde-bone/70 font-light leading-relaxed max-w-2xl">
+            Slicks and Drifters launch worldwide. Two products. One mission. A bigger lineup already in the pipeline.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ VALUES ============ -->
+<section class="py-24 md:py-32 px-5 md:px-10">
+  <div class="max-w-6xl mx-auto">
+    <p class="section-num text-7xl md:text-8xl mb-3">03</p>
+    <p class="text-xs uppercase tracking-[0.3em] text-ryde-goldlight mb-4">The rules</p>
+    <h2 class="font-display text-4xl md:text-6xl mb-16 leading-[0.95] max-w-3xl">
+      What we won't <span class="gold-gradient">compromise on.</span>
+    </h2>
+
+    <div class="grid md:grid-cols-2 gap-8 md:gap-12">
+      <div class="border-t border-white/10 pt-8">
+        <p class="font-display text-3xl gold-gradient mb-4">→ Real first</p>
+        <p class="text-ryde-bone/70 font-light leading-relaxed">If the flavor on the label is strawberry, real strawberry is in the bag. No hiding behind "natural flavor".</p>
+      </div>
+      <div class="border-t border-white/10 pt-8">
+        <p class="font-display text-3xl gold-gradient mb-4">→ Design forward</p>
+        <p class="text-ryde-bone/70 font-light leading-relaxed">Packaging that earns counter space. We treat the bag like an object, not just a wrapper.</p>
+      </div>
+      <div class="border-t border-white/10 pt-8">
+        <p class="font-display text-3xl gold-gradient mb-4">→ No shortcuts</p>
+        <p class="text-ryde-bone/70 font-light leading-relaxed">Slower production. Smaller batches. Higher quality. We'd rather miss a launch than miss the bar.</p>
+      </div>
+      <div class="border-t border-white/10 pt-8">
+        <p class="font-display text-3xl gold-gradient mb-4">→ Make it move</p>
+        <p class="text-ryde-bone/70 font-light leading-relaxed">Candy is fun. We don't take ourselves too seriously — even when we take the craft seriously.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section class="py-24 md:py-32 px-5 md:px-10 text-center bg-ryde-ink border-t border-white/5">
+  <p class="text-xs uppercase tracking-[0.3em] text-ryde-goldlight mb-6">Join the ride</p>
+  <h2 class="font-display text-5xl md:text-7xl mb-10 max-w-3xl mx-auto leading-[0.95]">
+    Now you know <span class="gold-gradient">why.</span>
+  </h2>
+  <a href="product.html" class="cta-shine inline-block gold-bg text-ryde-black px-10 py-4 text-xs uppercase tracking-[0.25em] font-bold hover:scale-[1.02] transition-transform">
+    See the lineup
+  </a>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-white/5 py-14 px-5 md:px-10 bg-ryde-ink">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-10">
+      <img src="logo.png" alt="RYDE" class="h-16 w-auto" />
+      <div class="flex items-center gap-5">
+        <a href="#" aria-label="Instagram" class="w-10 h-10 border border-white/15 rounded-full flex items-center justify-center hover:border-ryde-gold hover:text-ryde-goldlight transition">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg>
+        </a>
+        <a href="#" aria-label="TikTok" class="w-10 h-10 border border-white/15 rounded-full flex items-center justify-center hover:border-ryde-gold hover:text-ryde-goldlight transition">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.3a4.8 4.8 0 0 1-3.4-1.6V15a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.9a2.7 2.7 0 1 0 1.9 2.6V2h2.7a4.8 4.8 0 0 0 3.5 4.3v2z"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube" class="w-10 h-10 border border-white/15 rounded-full flex items-center justify-center hover:border-ryde-gold hover:text-ryde-goldlight transition">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.4-5.2a2.8 2.8 0 0 0-2-2C18.8 4.4 12 4.4 12 4.4s-6.8 0-8.6.4a2.8 2.8 0 0 0-2 2C1 8.5 1 12 1 12s0 3.5.4 5.2a2.8 2.8 0 0 0 2 2c1.8.4 8.6.4 8.6.4s6.8 0 8.6-.4a2.8 2.8 0 0 0 2-2c.4-1.7.4-5.2.4-5.2zM9.8 15.4V8.6l5.7 3.4z"/></svg>
+        </a>
+        <a href="#" aria-label="X" class="w-10 h-10 border border-white/15 rounded-full flex items-center justify-center hover:border-ryde-gold hover:text-ryde-goldlight transition">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.5 8.6L23 22h-7l-5.5-7-6.3 7H1l8-9.2L1 2h7.2l5 6.6zm-1.2 18h2L7.4 4H5.3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5 text-xs text-white/40 uppercase tracking-[0.2em]">
+      <p>© 2026 RYDE. All rights reserved.</p>
+      <p>Move with <span class="text-ryde-goldlight">Flavor</span>.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const btn = document.getElementById('menuBtn');
+  const menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', () => menu.classList.toggle('closed'));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('closed')));
+</script>
+</body>
+</html>
