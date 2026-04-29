@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RYDE — Move with Flavor</title>
+<meta name="description" content="RYDE. Premium candy for the new generation. Move with Flavor." />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ryde: {
+            black: '#050505',
+            ink: '#0c0c0c',
+            bone: '#f5f1ea',
+            gold: '#B8860B',
+            goldlight: '#e3b465',
+            golddark: '#7a5a08',
+          }
+        },
+        fontFamily: {
+          display: ['"Archivo Black"', 'sans-serif'],
+          body: ['Manrope', 'sans-serif'],
+        }
+      }
+    }
+  }
+</script>
+
+<style>
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Manrope', sans-serif;
+    background: #050505;
+    color: #f5f1ea;
+    -webkit-font-smoothing: antialiased;
+  }
+  .font-display { font-family: 'Archivo Black', sans-serif; letter-spacing: -0.02em; }
+
+  /* Goud gradient voor accenten */
+  .gold-gradient {
+    background: linear-gradient(135deg, #e3b465 0%, #B8860B 45%, #7a5a08 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .gold-bg {
+    background: linear-gradient(135deg, #e3b465 0%, #B8860B 50%, #7a5a08 100%);
+  }
+
+  /* Subtiele grain texture overlay voor premium feel */
+  .grain::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.04;
+    z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Hero schaduw glow */
+  .hero-glow {
+    background: radial-gradient(ellipse at center, rgba(184,134,11,0.18) 0%, rgba(184,134,11,0) 60%);
+  }
+
+  /* Fade-in stagger animations */
+  @keyframes riseIn {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .rise { opacity: 0; animation: riseIn 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+  .delay-1 { animation-delay: 0.1s; }
+  .delay-2 { animation-delay: 0.3s; }
+  .delay-3 { animation-delay: 0.5s; }
+  .delay-4 { animation-delay: 0.7s; }
+  .delay-5 { animation-delay: 0.9s; }
+
+  /* Marquee */
+  @keyframes scroll-x {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  .marquee { animation: scroll-x 40s linear infinite; }
+
+  /* CTA hover */
+  .cta-shine {
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-shine::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 100%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+    transition: left 0.6s;
+  }
+  .cta-shine:hover::after { left: 100%; }
+
+  /* Product card */
+  .product-card {
+    transition: transform 0.5s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s;
+  }
+  .product-card:hover {
+    transform: translateY(-6px);
+    border-color: #B8860B;
+  }
+
+  /* Number tick for sections */
+  .section-num {
+    font-family: 'Archivo Black', sans-serif;
+    color: rgba(184, 134, 11, 0.35);
+  }
+
+  /* Mobile menu */
+  .mobile-menu { transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+  .mobile-menu.closed { transform: translateY(-100%); }
+</style>
+</head>
+
+<body class="grain overflow-x-hidden">
+
+<!-- ============ NAV ============ -->
+<header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-ryde-black/60 border-b border-white/5">
+  <nav class="max-w-7xl mx-auto px-5 md:px-10 py-4 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2">
+      <img src="logo.png" alt="RYDE" class="h-12 md:h-14 w-auto" />
+    </a>
+
+    <ul class="hidden md:flex items-center gap-10 text-[13px] uppercase tracking-[0.18em] font-medium">
+      <li><a href="index.html" class="text-ryde-bone hover:text-ryde-goldlight transition">Home</a></li>
+      <li><a href="product.html" class="text-ryde-bone/70 hover:text-ryde-goldlight transition">Shop</a></li>
+      <li><a href="aboutus.html" class="text-ryde-bone/70 hover:text-ryde-goldlight transition">Journey</a></li>
+      <li><a href="contact.html" class="text-ryde-bone/70 hover:text-ryde-goldlight transition">Contact</a></li>
+    </ul>
+
+    <a href="product.html" class="hidden md:inline-flex cta-shine items-center gap-2 px-5 py-2.5 border border-ryde-gold/60 text-ryde-goldlight text-xs uppercase tracking-[0.2em] font-semibold hover:bg-ryde-gold hover:text-ryde-black transition">
+      Shop
+      <span aria-hidden="true">→</span>
+    </a>
+
+    <button id="menuBtn" aria-label="Menu" class="md:hidden text-ryde-bone p-2">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+        <path d="M3 7h18M3 17h18"/>
+      </svg>
+    </button>
+  </nav>
+
+  <div id="mobileMenu" class="mobile-menu closed md:hidden absolute top-full left-0 right-0 bg-ryde-black border-b border-white/5">
+    <ul class="flex flex-col px-5 py-6 gap-5 text-sm uppercase tracking-[0.2em]">
+      <li><a href="index.html" class="block py-1">Home</a></li>
+      <li><a href="product.html" class="block py-1">Shop</a></li>
+      <li><a href="aboutus.html" class="block py-1">Journey</a></li>
+      <li><a href="contact.html" class="block py-1">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="relative min-h-screen flex items-center justify-center overflow-hidden pt-24 pb-16">
+  <div class="hero-glow absolute inset-0"></div>
+
+  <!-- Decorative side text -->
+  <div class="hidden lg:block absolute left-6 top-1/2 -translate-y-1/2 -rotate-90 origin-left text-[10px] uppercase tracking-[0.5em] text-white/30">
+    Est. 2026 · Premium Candy Co.
+  </div>
+  <div class="hidden lg:block absolute right-6 top-1/2 -translate-y-1/2 rotate-90 origin-right text-[10px] uppercase tracking-[0.5em] text-white/30">
+    Lot No. 001 · Move with Flavor
+  </div>
+
+  <div class="relative z-10 text-center px-5 max-w-5xl mx-auto">
+    <p class="rise delay-1 text-[11px] md:text-xs uppercase tracking-[0.4em] text-ryde-goldlight mb-6">
+      ✦ &nbsp; Premium Candy &nbsp; ✦
+    </p>
+
+    <h1 class="rise delay-2 font-display text-[22vw] md:text-[16rem] leading-[0.85] mb-2">
+      RY<span class="gold-gradient">D</span>E
+    </h1>
+
+    <p class="rise delay-3 text-lg md:text-2xl font-light tracking-wide text-ryde-bone/80 mb-12 italic">
+      Move with Flavor.
+    </p>
+
+    <div class="rise delay-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+      <a href="product.html" class="cta-shine gold-bg text-ryde-black px-10 py-4 text-xs uppercase tracking-[0.25em] font-bold hover:scale-[1.02] transition-transform">
+        Shop Now
+      </a>
+      <a href="#journey" class="px-10 py-4 text-xs uppercase tracking-[0.25em] text-ryde-bone/70 hover:text-ryde-goldlight transition">
+        The Journey ↓
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 rise delay-5">
+    <div class="w-px h-12 bg-gradient-to-b from-ryde-gold to-transparent"></div>
+  </div>
+</section>
+
+<!-- ============ MARQUEE ============ -->
+<section class="border-y border-white/5 py-6 overflow-hidden bg-ryde-ink">
+  <div class="flex marquee whitespace-nowrap gap-12 text-2xl md:text-3xl font-display uppercase">
+    <div class="flex gap-12 items-center shrink-0">
+      <span>Slicks</span><span class="text-ryde-gold">✦</span>
+      <span>Drifters</span><span class="text-ryde-gold">✦</span>
+      <span>Move with Flavor</span><span class="text-ryde-gold">✦</span>
+      <span>Real Ingredients</span><span class="text-ryde-gold">✦</span>
+      <span>No Compromise</span><span class="text-ryde-gold">✦</span>
+    </div>
+    <div class="flex gap-12 items-center shrink-0" aria-hidden="true">
+      <span>Slicks</span><span class="text-ryde-gold">✦</span>
+      <span>Drifters</span><span class="text-ryde-gold">✦</span>
+      <span>Move with Flavor</span><span class="text-ryde-gold">✦</span>
+      <span>Real Ingredients</span><span class="text-ryde-gold">✦</span>
+      <span>No Compromise</span><span class="text-ryde-gold">✦</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ THE JOURNEY ============ -->
+<section id="journey" class="relative py-28 md:py-40 px-5 md:px-10 max-w-7xl mx-auto">
+  <div class="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
+    <div class="md:col-span-5 md:sticky md:top-32">
+      <p class="section-num text-7xl md:text-8xl mb-4">01</p>
+      <p class="text-xs uppercase tracking-[0.3em] text-ryde-goldlight mb-6">The Journey</p>
+      <h2 class="font-display text-5xl md:text-7xl leading-[0.95] mb-8">
+        Better<br/>
+        <span class="gold-gradient">candy.</span><br/>
+        Period.
+      </h2>
+    </div>
+
+    <div class="md:col-span-7 space-y-8 text-ryde-bone/75 text-lg md:text-xl font-light leading-relaxed">
+      <p>
+        We grew up loving candy. We also grew up reading the back of the bag — and not loving what we found there.
+      </p>
+      <p>
+        RYDE started as a simple question: <em class="text-ryde-bone not-italic font-medium">what if candy could feel premium without the chemistry-class ingredient list?</em> No artificial dyes pretending to be fruit. No syrupy filler. Just real flavor, sharp design, and a brand that respects you as much as it entertains you.
+      </p>
+      <p>
+        Every pack we make passes one test: would we want it sitting on our own kitchen counter? If the answer's no, it doesn't ship.
+      </p>
+
+      <div class="grid grid-cols-3 gap-6 pt-10 border-t border-white/10">
+        <div>
+          <p class="font-display text-3xl md:text-4xl gold-gradient">100%</p>
+          <p class="text-xs uppercase tracking-[0.2em] text-white/50 mt-2">Real flavor</p>
+        </div>
+        <div>
+          <p class="font-display text-3xl md:text-4xl gold-gradient">0</p>
+          <p class="text-xs uppercase tracking-[0.2em] text-white/50 mt-2">Artificial dyes</p>
+        </div>
+        <div>
+          <p class="font-display text-3xl md:text-4xl gold-gradient">∞</p>
+          <p class="text-xs uppercase tracking-[0.2em] text-white/50 mt-2">Vibes</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PRODUCT PREVIEW ============ -->
+<section id="shop" class="relative py-28 md:py-40 px-5 md:px-10 bg-ryde-ink border-y border-white/5">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row md:items-end md:justify-between mb-16 gap-6">
+      <div>
+        <p class="section-num text-7xl md:text-8xl mb-4">02</p>
+        <p class="text-xs uppercase tracking-[0.3em] text-ryde-goldlight mb-4">The Lineup</p>
+        <h2 class="font-display text-5xl md:text-7xl leading-[0.95]">
+          Pick your<br/><span class="gold-gradient">flavor.</span>
+        </h2>
+      </div>
+      <a href="product.html" class="self-start md:self-end text-xs uppercase tracking-[0.25em] text-ryde-bone/70 hover:text-ryde-goldlight transition border-b border-ryde-gold/40 pb-1">
+        View all →
+      </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      <!-- Slicks -->
+      <article class="product-card group relative aspect-[4/5] md:aspect-square border border-white/10 bg-ryde-black p-8 md:p-10 flex flex-col justify-between overflow-hidden">
+        <div class="absolute top-0 right-0 w-1/2 h-1/2 hero-glow opacity-50"></div>
+        <div class="relative">
+          <p class="text-[11px] uppercase tracking-[0.3em] text-ryde-goldlight mb-3">Series 01</p>
+          <h3 class="font-display text-5xl md:text-6xl mb-2">Slicks</h3>
+          <p class="text-ryde-bone/60 text-sm md:text-base font-light max-w-xs">Smooth chews. Bold fruit. Built for everyday motion.</p>
+        </div>
+        <div class="relative flex items-end justify-between">
+          <div class="font-display text-7xl md:text-8xl text-white/10">01</div>
+          <span class="text-xs uppercase tracking-[0.25em] text-ryde-goldlight border-b border-ryde-gold/50 pb-1">Coming soon</span>
+        </div>
+      </article>
+
+      <!-- Drifters -->
+      <article class="product-card group relative aspect-[4/5] md:aspect-square border border-white/10 bg-ryde-black p-8 md:p-10 flex flex-col justify-between overflow-hidden">
+        <div class="absolute bottom-0 left-0 w-1/2 h-1/2 hero-glow opacity-50"></div>
+        <div class="relative">
+          <p class="text-[11px] uppercase tracking-[0.3em] text-ryde-goldlight mb-3">Series 02</p>
+          <h3 class="font-display text-5xl md:text-6xl mb-2">Drifters</h3>
+          <p class="text-ryde-bone/60 text-sm md:text-base font-light max-w-xs">Soft bites. Layered flavor. The slow ride.</p>
+        </div>
+        <div class="relative flex items-end justify-between">
+          <div class="font-display text-7xl md:text-8xl text-white/10">02</div>
+          <span class="text-xs uppercase tracking-[0.25em] text-ryde-goldlight border-b border-ryde-gold/50 pb-1">Coming soon</span>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA STRIP ============ -->
+<section class="py-24 md:py-32 px-5 md:px-10 text-center">
+  <p class="text-xs uppercase tracking-[0.3em] text-ryde-goldlight mb-6">Be first in line</p>
+  <h2 class="font-display text-4xl md:text-6xl mb-8 max-w-3xl mx-auto leading-[1]">
+    Drop your email. <span class="gold-gradient">Drop in early.</span>
+  </h2>
+  <form class="max-w-md mx-auto flex flex-col sm:flex-row gap-3" onsubmit="event.preventDefault(); this.querySelector('button').textContent='✓ You\\'re in';">
+    <input type="email" required placeholder="you@email.com" class="flex-1 bg-transparent border border-white/20 px-5 py-4 text-sm placeholder:text-white/30 focus:border-ryde-gold focus:outline-none transition" />
+    <button type="submit" class="cta-shine gold-bg text-ryde-black px-8 py-4 text-xs uppercase tracking-[0.25em] font-bold">
+      Notify me
+    </button>
+  </form>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-white/5 py-14 px-5 md:px-10 bg-ryde-ink">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-10">
+      <img src="logo.png" alt="RYDE" class="h-16 w-auto" />
+
+      <div class="flex items-center gap-5">
+        <a href="#" aria-label="Instagram" class="w-10 h-10 border border-white/15 rounded-full flex items-center justify-center hover:border-ryde-gold hover:text-ryde-goldlight transition">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg>
+        </a>
+        <a href="#" aria-label="TikTok" class="w-10 h-10 border border-white/15 rounded-full flex items-center justify-center hover:border-ryde-gold hover:text-ryde-goldlight transition">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.3a4.8 4.8 0 0 1-3.4-1.6V15a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.9a2.7 2.7 0 1 0 1.9 2.6V2h2.7a4.8 4.8 0 0 0 3.5 4.3v2z"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube" class="w-10 h-10 border border-white/15 rounded-full flex items-center justify-center hover:border-ryde-gold hover:text-ryde-goldlight transition">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.4-5.2a2.8 2.8 0 0 0-2-2C18.8 4.4 12 4.4 12 4.4s-6.8 0-8.6.4a2.8 2.8 0 0 0-2 2C1 8.5 1 12 1 12s0 3.5.4 5.2a2.8 2.8 0 0 0 2 2c1.8.4 8.6.4 8.6.4s6.8 0 8.6-.4a2.8 2.8 0 0 0 2-2c.4-1.7.4-5.2.4-5.2zM9.8 15.4V8.6l5.7 3.4z"/></svg>
+        </a>
+        <a href="#" aria-label="X" class="w-10 h-10 border border-white/15 rounded-full flex items-center justify-center hover:border-ryde-gold hover:text-ryde-goldlight transition">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.5 8.6L23 22h-7l-5.5-7-6.3 7H1l8-9.2L1 2h7.2l5 6.6zm-1.2 18h2L7.4 4H5.3z"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5 text-xs text-white/40 uppercase tracking-[0.2em]">
+      <p>© 2026 RYDE. All rights reserved.</p>
+      <p>Move with <span class="text-ryde-goldlight">Flavor</span>.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Mobile menu toggle
+  const btn = document.getElementById('menuBtn');
+  const menu = document.getElementById('mobileMenu');
+  btn.addEventListener('click', () => menu.classList.toggle('closed'));
+  menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('closed')));
+</script>
+
+</body>
+</html>
