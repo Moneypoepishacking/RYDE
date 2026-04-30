@@ -3,18 +3,21 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>RYDE — The Journey</title>
+<title>RYDE — Our Story</title>
 
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script>
   tailwind.config = {
     theme: { extend: {
       colors: {
-        ryde: { black:'#050505', ink:'#0c0c0c', bone:'#f5f1ea', gold:'#B8860B', goldlight:'#e3b465', golddark:'#7a5a08' }
+        ryde: {
+          black:'#0a0a0a', cream:'#fefcf7',
+          strawberry:'#ff3d5a', orange:'#ff8c1a', lemon:'#ffd60a',
+          apple:'#7cd650', mango:'#ffaa00', grape:'#a855f7', blueberry:'#3b82f6',
+        }
       },
       fontFamily: { display:['"Archivo Black"','sans-serif'], body:['Manrope','sans-serif'] }
     }}
@@ -23,215 +26,218 @@
 
 <style>
   html { scroll-behavior: smooth; }
-  body { font-family:'Manrope',sans-serif; background:#050505; color:#f5f1ea; -webkit-font-smoothing:antialiased; }
+  body { font-family:'Manrope',sans-serif; background:#fefcf7; color:#0a0a0a; -webkit-font-smoothing:antialiased; }
   .font-display { font-family:'Archivo Black',sans-serif; letter-spacing:-0.02em; }
-  .gold-gradient { background:linear-gradient(135deg,#e3b465 0%,#B8860B 45%,#7a5a08 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-  .gold-bg { background:linear-gradient(135deg,#e3b465 0%,#B8860B 50%,#7a5a08 100%); }
 
-  .grain::before { content:''; position:fixed; inset:0; pointer-events:none; opacity:0.04; z-index:1;
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
-
-  .hero-glow { background: radial-gradient(ellipse at center, rgba(184,134,11,0.18) 0%, rgba(184,134,11,0) 60%); }
-
-  @keyframes riseIn { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
-  .rise { opacity:0; animation: riseIn 1s cubic-bezier(0.2,0.8,0.2,1) forwards; }
-  .delay-1{animation-delay:0.1s}.delay-2{animation-delay:0.3s}.delay-3{animation-delay:0.5s}
-
-  .cta-shine { position:relative; overflow:hidden; }
-  .cta-shine::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent); transition:left 0.6s; }
-  .cta-shine:hover::after { left:100%; }
-
-  .section-num { font-family:'Archivo Black',sans-serif; color:rgba(184,134,11,0.35); }
-
-  .timeline-dot {
-    width: 12px; height: 12px; border-radius: 50%;
-    background: linear-gradient(135deg,#e3b465 0%,#B8860B 50%,#7a5a08 100%);
-    box-shadow: 0 0 0 4px rgba(184,134,11,0.15);
+  .rainbow-y {
+    background: linear-gradient(135deg, #ff3d5a 0%, #ff8c1a 20%, #ffd60a 40%, #7cd650 60%, #3b82f6 80%, #a855f7 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    animation: shift 8s ease infinite;
   }
+  @keyframes shift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+
+  .blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.3; pointer-events: none; z-index: 0; }
+
+  .btn-rainbow {
+    background: linear-gradient(135deg, #ff3d5a, #ff8c1a, #ffd60a, #7cd650, #3b82f6, #a855f7);
+    background-size: 300% 300%; animation: shift 4s ease infinite;
+    color: white; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-rainbow:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 12px 30px rgba(255, 61, 90, 0.3); }
+  .btn-black { background: #0a0a0a; color: white; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; transition: transform 0.2s; }
+  .btn-black:hover { transform: translateY(-2px); }
+
+  @keyframes riseIn { from { opacity:0; transform: translateY(28px); } to { opacity:1; transform: translateY(0); } }
+  .rise { opacity:0; animation: riseIn 0.9s cubic-bezier(0.2,0.8,0.2,1) forwards; }
+  .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.25s; } .delay-3 { animation-delay: 0.4s; }
+
+  .tag-pill { border: 2px solid #0a0a0a; border-radius: 999px; padding: 4px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  @keyframes float { 0%,100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(10deg); } }
+  .float-1 { animation: float 6s ease-in-out infinite; }
+  .float-2 { animation: float 7s ease-in-out infinite 1s; }
+  .float-3 { animation: float 8s ease-in-out infinite 2s; }
 
   .mobile-menu { transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1); }
-  .mobile-menu.closed { transform: translateY(-100%); }
+  .mobile-menu.closed { transform: translateY(-110%); }
 
-  /* Pull quote */
-  .pull-quote {
-    border-left: 2px solid #B8860B;
-    padding-left: 2rem;
-  }
+  .timeline-card { transition: transform 0.3s; }
+  .timeline-card:hover { transform: translateY(-4px) rotate(-1deg); }
 </style>
 </head>
-<body class="grain overflow-x-hidden">
+<body class="overflow-x-hidden">
 
-<!-- ============ NAV ============ -->
-<header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-ryde-black/60 border-b border-white/5">
-  <nav class="max-w-7xl mx-auto px-5 md:px-10 py-4 flex items-center justify-between">
-    <a href="index.html" class="flex items-center gap-2">
-      <img src="logo.png" alt="RYDE" class="h-12 md:h-14 w-auto" />
-    </a>
-    <ul class="hidden md:flex items-center gap-10 text-[13px] uppercase tracking-[0.18em] font-medium">
-      <li><a href="index.html" class="text-ryde-bone/70 hover:text-ryde-goldlight transition">Home</a></li>
-      <li><a href="product.html" class="text-ryde-bone/70 hover:text-ryde-goldlight transition">Shop</a></li>
-      <li><a href="aboutus.html" class="text-ryde-bone hover:text-ryde-goldlight transition">Journey</a></li>
-      <li><a href="contact.html" class="text-ryde-bone/70 hover:text-ryde-goldlight transition">Contact</a></li>
+<!-- NAV -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-ryde-cream/85 backdrop-blur-md border-b-2 border-black/10">
+  <nav class="max-w-7xl mx-auto px-5 md:px-10 py-3 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2"><img src="logo.png" alt="RYDE" class="h-12 md:h-14 w-auto" /></a>
+    <ul class="hidden md:flex items-center gap-8 text-sm font-bold uppercase tracking-wider">
+      <li><a href="index.html" class="hover:text-ryde-strawberry transition">Home</a></li>
+      <li><a href="product.html" class="hover:text-ryde-orange transition">Shop</a></li>
+      <li><a href="aboutus.html" class="text-ryde-apple">Story</a></li>
+      <li><a href="contact.html" class="hover:text-ryde-grape transition">Contact</a></li>
     </ul>
-    <a href="product.html" class="hidden md:inline-flex cta-shine items-center gap-2 px-5 py-2.5 border border-ryde-gold/60 text-ryde-goldlight text-xs uppercase tracking-[0.2em] font-semibold hover:bg-ryde-gold hover:text-ryde-black transition">
-      Shop <span aria-hidden="true">→</span>
-    </a>
-    <button id="menuBtn" aria-label="Menu" class="md:hidden text-ryde-bone p-2">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18M3 17h18"/></svg>
+    <a href="product.html" class="hidden md:inline-block btn-rainbow px-6 py-3 rounded-full text-xs">Shop Now ✦</a>
+    <button id="menuBtn" aria-label="Menu" class="md:hidden p-2">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7h18M3 17h18"/></svg>
     </button>
   </nav>
-  <div id="mobileMenu" class="mobile-menu closed md:hidden absolute top-full left-0 right-0 bg-ryde-black border-b border-white/5">
-    <ul class="flex flex-col px-5 py-6 gap-5 text-sm uppercase tracking-[0.2em]">
+  <div id="mobileMenu" class="mobile-menu closed md:hidden absolute top-full left-0 right-0 bg-ryde-cream border-b-2 border-black/10">
+    <ul class="flex flex-col px-5 py-6 gap-4 text-base font-bold uppercase tracking-wide">
       <li><a href="index.html" class="block py-1">Home</a></li>
       <li><a href="product.html" class="block py-1">Shop</a></li>
-      <li><a href="aboutus.html" class="block py-1">Journey</a></li>
+      <li><a href="aboutus.html" class="block py-1">Story</a></li>
       <li><a href="contact.html" class="block py-1">Contact</a></li>
     </ul>
   </div>
 </header>
 
-<!-- ============ HERO ============ -->
-<section class="relative pt-40 pb-20 md:pt-52 md:pb-28 px-5 md:px-10 overflow-hidden">
-  <div class="hero-glow absolute inset-0"></div>
-  <div class="relative z-10 max-w-6xl mx-auto">
-    <p class="rise delay-1 text-[11px] uppercase tracking-[0.4em] text-ryde-goldlight mb-6">The Journey</p>
-    <h1 class="rise delay-2 font-display text-6xl md:text-9xl leading-[0.85] mb-8 max-w-5xl">
-      Candy, <span class="gold-gradient italic">reconsidered.</span>
+<!-- HERO -->
+<section class="relative pt-32 pb-16 md:pt-40 md:pb-24 px-5 md:px-10 overflow-hidden">
+  <div class="blob bg-ryde-strawberry w-72 h-72 -top-10 -left-20"></div>
+  <div class="blob bg-ryde-blueberry w-72 h-72 top-20 -right-20"></div>
+  <div class="blob bg-ryde-apple w-72 h-72 bottom-0 left-1/3"></div>
+
+  <div class="absolute top-32 left-10 text-5xl float-1 hidden md:block">🌍</div>
+  <div class="absolute top-40 right-20 text-5xl float-2 hidden md:block">🍬</div>
+  <div class="absolute bottom-20 right-10 text-5xl float-3 hidden md:block">✈️</div>
+
+  <div class="relative z-10 max-w-5xl mx-auto text-center">
+    <p class="rise delay-1 tag-pill inline-block mb-6 bg-ryde-cream">★ Our Story ★</p>
+    <h1 class="rise delay-2 font-display text-6xl md:text-9xl leading-[0.85] mb-8">
+      Candy hunters. <br/>
+      <span class="rainbow-y">Worldwide.</span>
     </h1>
-    <p class="rise delay-3 text-xl md:text-2xl font-light text-ryde-bone/70 max-w-2xl leading-relaxed">
-      We didn't set out to reinvent the wheel. We set out to make the wheel taste better.
+    <p class="rise delay-3 text-xl md:text-2xl text-black/70 max-w-3xl mx-auto leading-relaxed">
+      We didn't invent candy. We just got really, <span class="font-bold underline decoration-wavy decoration-ryde-strawberry">really</span> good at finding the best of it.
     </p>
   </div>
 </section>
 
-<!-- ============ STORY ============ -->
+<!-- THE WHY -->
 <section class="py-20 md:py-28 px-5 md:px-10">
-  <div class="max-w-6xl mx-auto grid md:grid-cols-12 gap-10 md:gap-16">
-    <aside class="md:col-span-4">
-      <p class="section-num text-7xl md:text-8xl mb-3">01</p>
-      <p class="text-xs uppercase tracking-[0.3em] text-ryde-goldlight">The why</p>
-    </aside>
+  <div class="max-w-5xl mx-auto">
+    <div class="bg-black text-white rounded-[40px] p-10 md:p-16 relative overflow-hidden">
+      <div class="absolute top-6 right-8 text-6xl float-1">🍓</div>
 
-    <div class="md:col-span-8 space-y-8 text-lg md:text-xl font-light text-ryde-bone/80 leading-relaxed">
-      <p>
-        Most candy hasn't really changed in fifty years. Same wax. Same neon dyes. Same five-syllable preservatives nobody can pronounce. The packaging gets a refresh every decade or two, but underneath — same product.
-      </p>
-      <p>
-        We started RYDE because the standard had drifted. Coffee got better. Chocolate got better. Even gum got better. Candy stayed stuck in 1978.
-      </p>
-      <div class="pull-quote">
-        <p class="font-display text-2xl md:text-3xl leading-tight gold-gradient">
-          "We wanted candy that didn't apologize for itself."
-        </p>
+      <p class="tag-pill inline-block mb-6 bg-ryde-lemon text-black border-ryde-lemon">★ The Why ★</p>
+      <h2 class="font-display text-4xl md:text-6xl mb-8 leading-[1]">
+        Best candy is <br/><span class="rainbow-y">somewhere else.</span>
+      </h2>
+      <div class="space-y-6 text-lg md:text-xl font-light text-white/80 leading-relaxed max-w-2xl">
+        <p>Have you ever had a Hi-Chew straight from a Tokyo combini? Or Mexican Pelon Pelo Rico from a corner store in Mexico City? It hits different. Way different.</p>
+        <p>Most candy in Dutch supermarkets is the same five brands you've had since you were 6. There's a whole world out there — Japanese mochi gummies, Korean watermelon bars, Brazilian peanut candy, American sour rope.</p>
+        <p class="text-ryde-lemon font-bold text-2xl">We bring it all to you.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ TIMELINE ============ -->
-<section class="py-20 md:py-28 px-5 md:px-10 bg-ryde-ink border-y border-white/5">
+<!-- TIMELINE / JOURNEY -->
+<section class="py-20 md:py-32 px-5 md:px-10 bg-ryde-cream">
   <div class="max-w-6xl mx-auto">
-    <p class="section-num text-7xl md:text-8xl mb-3">02</p>
-    <p class="text-xs uppercase tracking-[0.3em] text-ryde-goldlight mb-4">The build</p>
-    <h2 class="font-display text-4xl md:text-6xl mb-16 leading-[0.95] max-w-3xl">
-      How we got <span class="gold-gradient">here.</span>
-    </h2>
+    <div class="text-center mb-16">
+      <p class="tag-pill inline-block mb-4 bg-ryde-apple text-white border-ryde-apple">★ The Build ★</p>
+      <h2 class="font-display text-5xl md:text-7xl mb-4">How we got <span class="rainbow-y">here.</span></h2>
+    </div>
 
-    <div class="space-y-12 md:space-y-16 relative">
-      <div class="absolute left-[5px] md:left-[5px] top-2 bottom-2 w-px bg-gradient-to-b from-ryde-gold via-ryde-gold/30 to-transparent"></div>
-
-      <div class="grid md:grid-cols-12 gap-6 relative">
-        <div class="md:col-span-3 flex md:block items-center gap-4">
-          <span class="timeline-dot shrink-0"></span>
-          <p class="font-display text-2xl md:text-3xl gold-gradient md:ml-6">2024</p>
-        </div>
-        <div class="md:col-span-9 md:pl-6">
-          <h3 class="text-xl md:text-2xl font-semibold mb-2">The kitchen experiments</h3>
-          <p class="text-ryde-bone/70 font-light leading-relaxed max-w-2xl">
-            A garage. A candy thermometer. Forty-seven failed batches of chewy citrus. One that finally worked. We knew we had something.
-          </p>
-        </div>
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="timeline-card bg-ryde-strawberry text-white rounded-3xl p-8">
+        <p class="font-display text-6xl mb-4">2024</p>
+        <h3 class="font-display text-2xl mb-3">The idea</h3>
+        <p class="font-light opacity-90">A friend brought back a suitcase from Tokyo full of candy. We tasted everything in one sitting. We knew Dutch shelves were missing this.</p>
       </div>
 
-      <div class="grid md:grid-cols-12 gap-6 relative">
-        <div class="md:col-span-3 flex md:block items-center gap-4">
-          <span class="timeline-dot shrink-0"></span>
-          <p class="font-display text-2xl md:text-3xl gold-gradient md:ml-6">2025</p>
-        </div>
-        <div class="md:col-span-9 md:pl-6">
-          <h3 class="text-xl md:text-2xl font-semibold mb-2">The brand takes shape</h3>
-          <p class="text-ryde-bone/70 font-light leading-relaxed max-w-2xl">
-            We named it RYDE. We picked our colors — black, bone, a single line of gold. We refused to look like anything else on the shelf.
-          </p>
-        </div>
+      <div class="timeline-card bg-ryde-lemon text-black rounded-3xl p-8 md:mt-8">
+        <p class="font-display text-6xl mb-4">2025</p>
+        <h3 class="font-display text-2xl mb-3">The brand</h3>
+        <p class="font-light">RYDE was born. Logo, website, vibe — all dialed in. Started talking to suppliers in Japan, Mexico, USA, Korea.</p>
       </div>
 
-      <div class="grid md:grid-cols-12 gap-6 relative">
-        <div class="md:col-span-3 flex md:block items-center gap-4">
-          <span class="timeline-dot shrink-0"></span>
-          <p class="font-display text-2xl md:text-3xl gold-gradient md:ml-6">2026</p>
-        </div>
-        <div class="md:col-span-9 md:pl-6">
-          <h3 class="text-xl md:text-2xl font-semibold mb-2">The first drop</h3>
-          <p class="text-ryde-bone/70 font-light leading-relaxed max-w-2xl">
-            Slicks and Drifters launch worldwide. Two products. One mission. A bigger lineup already in the pipeline.
-          </p>
-        </div>
+      <div class="timeline-card bg-ryde-apple text-white rounded-3xl p-8">
+        <p class="font-display text-6xl mb-4">2026</p>
+        <h3 class="font-display text-2xl mb-3">The launch</h3>
+        <p class="font-light opacity-90">First mystery boxes shipped. Slicks and Drifters series in development. The ride is just getting started.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ VALUES ============ -->
-<section class="py-24 md:py-32 px-5 md:px-10">
+<!-- VALUES -->
+<section class="py-20 md:py-32 px-5 md:px-10">
   <div class="max-w-6xl mx-auto">
-    <p class="section-num text-7xl md:text-8xl mb-3">03</p>
-    <p class="text-xs uppercase tracking-[0.3em] text-ryde-goldlight mb-4">The rules</p>
-    <h2 class="font-display text-4xl md:text-6xl mb-16 leading-[0.95] max-w-3xl">
-      What we won't <span class="gold-gradient">compromise on.</span>
-    </h2>
+    <div class="text-center mb-16">
+      <p class="tag-pill inline-block mb-4 bg-ryde-grape text-white border-ryde-grape">★ Our Rules ★</p>
+      <h2 class="font-display text-5xl md:text-7xl mb-4">What we <span class="rainbow-y">stand for.</span></h2>
+    </div>
 
-    <div class="grid md:grid-cols-2 gap-8 md:gap-12">
-      <div class="border-t border-white/10 pt-8">
-        <p class="font-display text-3xl gold-gradient mb-4">→ Real first</p>
-        <p class="text-ryde-bone/70 font-light leading-relaxed">If the flavor on the label is strawberry, real strawberry is in the bag. No hiding behind "natural flavor".</p>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
+      <div class="bg-ryde-blueberry text-white rounded-3xl p-8 md:p-10">
+        <div class="text-5xl mb-4">🌍</div>
+        <h3 class="font-display text-3xl mb-3">Real flavor, real world</h3>
+        <p class="font-light opacity-90">Every candy in our box has been hand-tasted by us. If we wouldn't eat it, you won't get it.</p>
       </div>
-      <div class="border-t border-white/10 pt-8">
-        <p class="font-display text-3xl gold-gradient mb-4">→ Design forward</p>
-        <p class="text-ryde-bone/70 font-light leading-relaxed">Packaging that earns counter space. We treat the bag like an object, not just a wrapper.</p>
+      <div class="bg-ryde-orange text-white rounded-3xl p-8 md:p-10">
+        <div class="text-5xl mb-4">📦</div>
+        <h3 class="font-display text-3xl mb-3">Packed with love</h3>
+        <p class="font-light opacity-90">Every box is hand-packed in NL. Sometimes with stickers, sometimes with surprises, always with care.</p>
       </div>
-      <div class="border-t border-white/10 pt-8">
-        <p class="font-display text-3xl gold-gradient mb-4">→ No shortcuts</p>
-        <p class="text-ryde-bone/70 font-light leading-relaxed">Slower production. Smaller batches. Higher quality. We'd rather miss a launch than miss the bar.</p>
+      <div class="bg-ryde-apple text-white rounded-3xl p-8 md:p-10">
+        <div class="text-5xl mb-4">⚡</div>
+        <h3 class="font-display text-3xl mb-3">No basic vibes</h3>
+        <p class="font-light opacity-90">We don't sell what every supermarket already has. Only the rare, the imported, the unfindable.</p>
       </div>
-      <div class="border-t border-white/10 pt-8">
-        <p class="font-display text-3xl gold-gradient mb-4">→ Make it move</p>
-        <p class="text-ryde-bone/70 font-light leading-relaxed">Candy is fun. We don't take ourselves too seriously — even when we take the craft seriously.</p>
+      <div class="bg-ryde-grape text-white rounded-3xl p-8 md:p-10">
+        <div class="text-5xl mb-4">🎯</div>
+        <h3 class="font-display text-3xl mb-3">Built for the feed</h3>
+        <p class="font-light opacity-90">Our boxes are made to be unboxed on camera. Tag us — we repost the best ones.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ============ CTA ============ -->
-<section class="py-24 md:py-32 px-5 md:px-10 text-center bg-ryde-ink border-t border-white/5">
-  <p class="text-xs uppercase tracking-[0.3em] text-ryde-goldlight mb-6">Join the ride</p>
-  <h2 class="font-display text-5xl md:text-7xl mb-10 max-w-3xl mx-auto leading-[0.95]">
-    Now you know <span class="gold-gradient">why.</span>
-  </h2>
-  <a href="product.html" class="cta-shine inline-block gold-bg text-ryde-black px-10 py-4 text-xs uppercase tracking-[0.25em] font-bold hover:scale-[1.02] transition-transform">
-    See the lineup
-  </a>
+<!-- CTA -->
+<section class="py-20 md:py-28 px-5 md:px-10">
+  <div class="max-w-4xl mx-auto bg-gradient-to-br from-ryde-strawberry via-ryde-orange to-ryde-lemon rounded-[40px] p-10 md:p-16 text-center text-white relative overflow-hidden">
+    <div class="absolute top-4 right-6 text-6xl float-1">🌈</div>
+    <h2 class="font-display text-4xl md:text-6xl mb-6 leading-[1]">Ready to ride?</h2>
+    <p class="font-light text-white/90 mb-8 max-w-md mx-auto text-lg">
+      Now you know the why. Time for the what.
+    </p>
+    <a href="product.html" class="btn-black inline-block px-10 py-4 rounded-full text-sm">
+      Shop the Drops →
+    </a>
+  </div>
 </section>
 
-<!-- ============ FOOTER ============ -->
-<footer class="border-t border-white/5 py-14 px-5 md:px-10 bg-ryde-ink">
+<!-- FOOTER -->
+<footer class="bg-black text-white py-14 px-5 md:px-10">
   <div class="max-w-7xl mx-auto">
     <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-10">
-      <img src="logo.png" alt="RYDE" class="h-16 w-auto" />
-    <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5 text-xs text-white/40 uppercase tracking-[0.2em]">
-      <p>© 2026 RYDE. All rights reserved.</p>
-      <p>Move with <span class="text-ryde-goldlight">Flavor</span>.</p>
+      <div class="text-center md:text-left">
+        <img src="logo.png" alt="RYDE" class="h-16 w-auto mx-auto md:mx-0 mb-3 invert" />
+        <p class="text-sm text-white/60">Move with <span class="rainbow-y font-bold">Flavor</span>.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="#" aria-label="Instagram" class="w-12 h-12 bg-ryde-strawberry rounded-full flex items-center justify-center hover:scale-110 transition">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg>
+        </a>
+        <a href="#" aria-label="TikTok" class="w-12 h-12 bg-ryde-lemon text-black rounded-full flex items-center justify-center hover:scale-110 transition">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.3a4.8 4.8 0 0 1-3.4-1.6V15a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.9a2.7 2.7 0 1 0 1.9 2.6V2h2.7a4.8 4.8 0 0 0 3.5 4.3v2z"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube" class="w-12 h-12 bg-ryde-apple rounded-full flex items-center justify-center hover:scale-110 transition">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.4-5.2a2.8 2.8 0 0 0-2-2C18.8 4.4 12 4.4 12 4.4s-6.8 0-8.6.4a2.8 2.8 0 0 0-2 2C1 8.5 1 12 1 12s0 3.5.4 5.2a2.8 2.8 0 0 0 2 2c1.8.4 8.6.4 8.6.4s6.8 0 8.6-.4a2.8 2.8 0 0 0 2-2c.4-1.7.4-5.2.4-5.2zM9.8 15.4V8.6l5.7 3.4z"/></svg>
+        </a>
+        <a href="#" aria-label="X" class="w-12 h-12 bg-ryde-grape rounded-full flex items-center justify-center hover:scale-110 transition">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.5 8.6L23 22h-7l-5.5-7-6.3 7H1l8-9.2L1 2h7.2l5 6.6zm-1.2 18h2L7.4 4H5.3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/10 text-xs text-white/50">
+      <p>© 2026 RYDE · All rights reserved.</p>
+      <p>Hand-packed with love in NL 🇳🇱</p>
     </div>
   </div>
 </footer>
