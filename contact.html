@@ -7,14 +7,17 @@
 
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 <script>
   tailwind.config = {
     theme: { extend: {
       colors: {
-        ryde: { black:'#050505', ink:'#0c0c0c', bone:'#f5f1ea', gold:'#B8860B', goldlight:'#e3b465', golddark:'#7a5a08' }
+        ryde: {
+          black:'#0a0a0a', cream:'#fefcf7',
+          strawberry:'#ff3d5a', orange:'#ff8c1a', lemon:'#ffd60a',
+          apple:'#7cd650', mango:'#ffaa00', grape:'#a855f7', blueberry:'#3b82f6',
+        }
       },
       fontFamily: { display:['"Archivo Black"','sans-serif'], body:['Manrope','sans-serif'] }
     }}
@@ -23,178 +26,269 @@
 
 <style>
   html { scroll-behavior: smooth; }
-  body { font-family:'Manrope',sans-serif; background:#050505; color:#f5f1ea; -webkit-font-smoothing:antialiased; }
+  body { font-family:'Manrope',sans-serif; background:#fefcf7; color:#0a0a0a; -webkit-font-smoothing:antialiased; }
   .font-display { font-family:'Archivo Black',sans-serif; letter-spacing:-0.02em; }
-  .gold-gradient { background:linear-gradient(135deg,#e3b465 0%,#B8860B 45%,#7a5a08 100%); -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
-  .gold-bg { background:linear-gradient(135deg,#e3b465 0%,#B8860B 50%,#7a5a08 100%); }
 
-  .grain::before { content:''; position:fixed; inset:0; pointer-events:none; opacity:0.04; z-index:1;
-    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  .rainbow-y {
+    background: linear-gradient(135deg, #ff3d5a 0%, #ff8c1a 20%, #ffd60a 40%, #7cd650 60%, #3b82f6 80%, #a855f7 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    animation: shift 8s ease infinite;
+  }
+  @keyframes shift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
 
-  .hero-glow { background: radial-gradient(ellipse at center, rgba(184,134,11,0.18) 0%, rgba(184,134,11,0) 60%); }
+  .blob { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.3; pointer-events: none; z-index: 0; }
 
-  @keyframes riseIn { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
-  .rise { opacity:0; animation: riseIn 1s cubic-bezier(0.2,0.8,0.2,1) forwards; }
-  .delay-1{animation-delay:0.1s}.delay-2{animation-delay:0.3s}.delay-3{animation-delay:0.5s}.delay-4{animation-delay:0.7s}
+  .btn-rainbow {
+    background: linear-gradient(135deg, #ff3d5a, #ff8c1a, #ffd60a, #7cd650, #3b82f6, #a855f7);
+    background-size: 300% 300%; animation: shift 4s ease infinite;
+    color: white; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .btn-rainbow:hover { transform: translateY(-2px) scale(1.02); box-shadow: 0 12px 30px rgba(255, 61, 90, 0.3); }
 
-  .cta-shine { position:relative; overflow:hidden; }
-  .cta-shine::after { content:''; position:absolute; top:0; left:-100%; width:100%; height:100%;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent); transition:left 0.6s; }
-  .cta-shine:hover::after { left:100%; }
+  @keyframes riseIn { from { opacity:0; transform: translateY(28px); } to { opacity:1; transform: translateY(0); } }
+  .rise { opacity:0; animation: riseIn 0.9s cubic-bezier(0.2,0.8,0.2,1) forwards; }
+  .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.25s; } .delay-3 { animation-delay: 0.4s; }
+
+  .tag-pill { border: 2px solid #0a0a0a; border-radius: 999px; padding: 4px 14px; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; }
+
+  @keyframes float { 0%,100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-20px) rotate(10deg); } }
+  .float-1 { animation: float 6s ease-in-out infinite; }
+  .float-2 { animation: float 7s ease-in-out infinite 1s; }
 
   .field {
     width: 100%;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid rgba(255,255,255,0.2);
-    color: #f5f1ea;
+    background: white;
+    border: 2px solid #0a0a0a;
+    border-radius: 999px;
+    color: #0a0a0a;
     font-family: 'Manrope', sans-serif;
     font-size: 1rem;
-    padding: 1rem 0;
-    transition: border-color 0.3s;
+    padding: 14px 24px;
+    transition: all 0.2s;
   }
   .field:focus {
     outline: none;
-    border-bottom-color: #B8860B;
+    border-color: #ff3d5a;
+    box-shadow: 0 0 0 4px rgba(255, 61, 90, 0.2);
   }
-  .field::placeholder { color: rgba(255,255,255,0.3); }
+  .field::placeholder { color: rgba(0,0,0,0.4); }
+  textarea.field { border-radius: 24px; resize: none; min-height: 140px; }
+  select.field {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%230a0a0a' stroke-width='3'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 24px center;
+    padding-right: 50px;
+  }
 
   .label {
     display: block;
     font-size: 0.7rem;
     text-transform: uppercase;
-    letter-spacing: 0.25em;
-    color: #e3b465;
+    letter-spacing: 0.15em;
+    font-weight: 800;
     margin-bottom: 0.5rem;
+    margin-left: 1rem;
   }
 
   .mobile-menu { transition: transform 0.4s cubic-bezier(0.2,0.8,0.2,1); }
-  .mobile-menu.closed { transform: translateY(-100%); }
+  .mobile-menu.closed { transform: translateY(-110%); }
 
-  .section-num { font-family:'Archivo Black',sans-serif; color:rgba(184,134,11,0.35); }
+  .contact-card { transition: transform 0.3s; }
+  .contact-card:hover { transform: translateY(-4px) rotate(-1deg); }
 </style>
 </head>
-<body class="grain overflow-x-hidden">
+<body class="overflow-x-hidden">
 
-<!-- ============ NAV ============ -->
-<header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-ryde-black/60 border-b border-white/5">
-  <nav class="max-w-7xl mx-auto px-5 md:px-10 py-4 flex items-center justify-between">
-    <a href="index.html" class="flex items-center gap-2">
-      <img src="logo.png" alt="RYDE" class="h-12 md:h-14 w-auto" />
-    </a>
-    <ul class="hidden md:flex items-center gap-10 text-[13px] uppercase tracking-[0.18em] font-medium">
-      <li><a href="index.html" class="text-ryde-bone/70 hover:text-ryde-goldlight transition">Home</a></li>
-      <li><a href="product.html" class="text-ryde-bone/70 hover:text-ryde-goldlight transition">Shop</a></li>
-      <li><a href="aboutus.html" class="text-ryde-bone/70 hover:text-ryde-goldlight transition">Journey</a></li>
-      <li><a href="contact.html" class="text-ryde-bone hover:text-ryde-goldlight transition">Contact</a></li>
+<!-- NAV -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-ryde-cream/85 backdrop-blur-md border-b-2 border-black/10">
+  <nav class="max-w-7xl mx-auto px-5 md:px-10 py-3 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2"><img src="logo.png" alt="RYDE" class="h-12 md:h-14 w-auto" /></a>
+    <ul class="hidden md:flex items-center gap-8 text-sm font-bold uppercase tracking-wider">
+      <li><a href="index.html" class="hover:text-ryde-strawberry transition">Home</a></li>
+      <li><a href="product.html" class="hover:text-ryde-orange transition">Shop</a></li>
+      <li><a href="aboutus.html" class="hover:text-ryde-apple transition">Story</a></li>
+      <li><a href="contact.html" class="text-ryde-grape">Contact</a></li>
     </ul>
-    <a href="product.html" class="hidden md:inline-flex cta-shine items-center gap-2 px-5 py-2.5 border border-ryde-gold/60 text-ryde-goldlight text-xs uppercase tracking-[0.2em] font-semibold hover:bg-ryde-gold hover:text-ryde-black transition">
-      Shop <span aria-hidden="true">→</span>
-    </a>
-    <button id="menuBtn" aria-label="Menu" class="md:hidden text-ryde-bone p-2">
-      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7h18M3 17h18"/></svg>
+    <a href="product.html" class="hidden md:inline-block btn-rainbow px-6 py-3 rounded-full text-xs">Shop Now ✦</a>
+    <button id="menuBtn" aria-label="Menu" class="md:hidden p-2">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 7h18M3 17h18"/></svg>
     </button>
   </nav>
-  <div id="mobileMenu" class="mobile-menu closed md:hidden absolute top-full left-0 right-0 bg-ryde-black border-b border-white/5">
-    <ul class="flex flex-col px-5 py-6 gap-5 text-sm uppercase tracking-[0.2em]">
+  <div id="mobileMenu" class="mobile-menu closed md:hidden absolute top-full left-0 right-0 bg-ryde-cream border-b-2 border-black/10">
+    <ul class="flex flex-col px-5 py-6 gap-4 text-base font-bold uppercase tracking-wide">
       <li><a href="index.html" class="block py-1">Home</a></li>
       <li><a href="product.html" class="block py-1">Shop</a></li>
-      <li><a href="aboutus.html" class="block py-1">Journey</a></li>
+      <li><a href="aboutus.html" class="block py-1">Story</a></li>
       <li><a href="contact.html" class="block py-1">Contact</a></li>
     </ul>
   </div>
 </header>
 
-<!-- ============ HERO + CONTACT ============ -->
-<section class="relative min-h-screen pt-32 md:pt-40 pb-20 px-5 md:px-10 overflow-hidden">
-  <div class="hero-glow absolute inset-0"></div>
+<!-- HERO -->
+<section class="relative pt-32 pb-12 md:pt-40 md:pb-16 px-5 md:px-10 overflow-hidden">
+  <div class="blob bg-ryde-strawberry w-72 h-72 -top-10 -left-20"></div>
+  <div class="blob bg-ryde-grape w-72 h-72 top-20 -right-20"></div>
 
-  <div class="relative z-10 max-w-7xl mx-auto grid md:grid-cols-12 gap-12 md:gap-16 pt-10">
-    <!-- LEFT -->
-    <div class="md:col-span-5">
-      <p class="rise delay-1 text-[11px] uppercase tracking-[0.4em] text-ryde-goldlight mb-6">Get in touch</p>
-      <h1 class="rise delay-2 font-display text-6xl md:text-8xl leading-[0.85] mb-8">
-        Say <span class="gold-gradient italic">hi.</span>
-      </h1>
-      <p class="rise delay-3 text-lg md:text-xl font-light text-ryde-bone/70 mb-12 leading-relaxed max-w-md">
-        Press, partnerships, wholesale, or just want to tell us what flavor we should make next — drop us a line.
-      </p>
+  <div class="absolute top-32 right-10 text-5xl float-1 hidden md:block">💬</div>
+  <div class="absolute bottom-10 left-10 text-5xl float-2 hidden md:block">📬</div>
 
-      <div class="rise delay-4 space-y-8 border-t border-white/10 pt-8">
+  <div class="relative z-10 max-w-5xl mx-auto text-center">
+    <p class="rise delay-1 tag-pill inline-block mb-6 bg-ryde-cream">★ Get in touch ★</p>
+    <h1 class="rise delay-2 font-display text-6xl md:text-9xl leading-[0.85] mb-6">
+      Say <span class="rainbow-y">hi.</span>
+    </h1>
+    <p class="rise delay-3 text-lg md:text-xl text-black/60 max-w-2xl mx-auto">
+      Question, weird flavor request, collab idea? Slide into our DMs or use the form below.
+    </p>
+  </div>
+</section>
+
+<!-- CONTACT GRID -->
+<section class="px-5 md:px-10 pb-20">
+  <div class="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+
+    <!-- LEFT: Contact info -->
+    <div class="space-y-4">
+      <a href="mailto:ryde@gmail.com" class="contact-card block bg-ryde-strawberry text-white rounded-3xl p-8 hover:bg-ryde-orange transition">
+        <div class="text-4xl mb-3">📩</div>
+        <p class="text-xs uppercase tracking-widest opacity-80 mb-1">General</p>
+        <p class="font-display text-2xl">hello@ryde.com</p>
+      </a>
+
+      <!-- Social CTA -->
+      <div class="bg-black text-white rounded-3xl p-8">
+        <p class="text-xs uppercase tracking-widest text-ryde-lemon mb-4 font-bold">★ Follow the ride ★</p>
+        <div class="flex items-center gap-3">
+          <a href="#" aria-label="Instagram" class="w-12 h-12 bg-ryde-strawberry rounded-full flex items-center justify-center hover:scale-110 transition">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg>
+          </a>
+          <a href="#" aria-label="TikTok" class="w-12 h-12 bg-ryde-lemon text-black rounded-full flex items-center justify-center hover:scale-110 transition">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.3a4.8 4.8 0 0 1-3.4-1.6V15a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.9a2.7 2.7 0 1 0 1.9 2.6V2h2.7a4.8 4.8 0 0 0 3.5 4.3v2z"/></svg>
+          </a>
+          <a href="#" aria-label="YouTube" class="w-12 h-12 bg-ryde-apple rounded-full flex items-center justify-center hover:scale-110 transition">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.4-5.2a2.8 2.8 0 0 0-2-2C18.8 4.4 12 4.4 12 4.4s-6.8 0-8.6.4a2.8 2.8 0 0 0-2 2C1 8.5 1 12 1 12s0 3.5.4 5.2a2.8 2.8 0 0 0 2 2c1.8.4 8.6.4 8.6.4s6.8 0 8.6-.4a2.8 2.8 0 0 0 2-2c.4-1.7.4-5.2.4-5.2zM9.8 15.4V8.6l5.7 3.4z"/></svg>
+          </a>
+          <a href="#" aria-label="X" class="w-12 h-12 bg-ryde-grape rounded-full flex items-center justify-center hover:scale-110 transition">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.5 8.6L23 22h-7l-5.5-7-6.3 7H1l8-9.2L1 2h7.2l5 6.6zm-1.2 18h2L7.4 4H5.3z"/></svg>
+          </a>
+        </div>
+        <p class="text-sm mt-4 text-white/60">@ryde — DMs zijn open</p>
+      </div>
+    </div>
+
+    <!-- RIGHT: Form -->
+    <div class="bg-white border-2 border-black rounded-3xl p-8 md:p-10">
+      <p class="tag-pill inline-block mb-4 bg-ryde-lemon border-ryde-lemon">★ Send a message ★</p>
+      <h2 class="font-display text-3xl md:text-4xl mb-6 leading-[1]">Drop us a <span class="rainbow-y">line.</span></h2>
+
+      <div id="formContainer" class="space-y-5">
         <div>
-          <p class="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">General</p>
-          <a href="mailto:hello@ryde.com" class="text-xl md:text-2xl font-light hover:text-ryde-goldlight transition">hello@ryde.com</a>
+          <label class="label" for="name">Name</label>
+          <input id="name" type="text" placeholder="Your name" class="field" />
         </div>
         <div>
-          <p class="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">Press</p>
-          <a href="mailto:press@ryde.com" class="text-xl md:text-2xl font-light hover:text-ryde-goldlight transition">press@ryde.com</a>
+          <label class="label" for="email">Email</label>
+          <input id="email" type="email" placeholder="you@email.com" class="field" />
         </div>
         <div>
-          <p class="text-[10px] uppercase tracking-[0.3em] text-white/40 mb-2">Wholesale</p>
-          <a href="mailto:wholesale@ryde.com" class="text-xl md:text-2xl font-light hover:text-ryde-goldlight transition">wholesale@ryde.com</a>
+          <label class="label" for="topic">What's this about?</label>
+          <select id="topic" class="field cursor-pointer">
+            <option>General question</option>
+            <option>Order issue</option>
+            <option>Press inquiry</option>
+            <option>Wholesale</option>
+            <option>Collab / partnership</option>
+            <option>Just saying hi</option>
+          </select>
         </div>
+        <div>
+          <label class="label" for="message">Message</label>
+          <textarea id="message" placeholder="Tell us what's up..." class="field"></textarea>
+        </div>
+
+        <button type="button" id="submitBtn" class="btn-rainbow w-full px-8 py-4 rounded-full text-sm">
+          Send message →
+        </button>
       </div>
 
-    <!-- RIGHT — FORM -->
-    <div class="md:col-span-7 md:pl-8 md:border-l md:border-white/10">
-      <div class="rise delay-3 max-w-xl">
-        <p class="section-num text-6xl md:text-7xl mb-3">/01</p>
-        <p class="text-xs uppercase tracking-[0.3em] text-ryde-goldlight mb-10">Send a message</p>
-
-        <div id="formContainer">
-          <div class="space-y-8">
-            <div>
-              <label class="label" for="name">Name</label>
-              <input id="name" type="text" placeholder="Your name" class="field" />
-            </div>
-            <div>
-              <label class="label" for="email">Email</label>
-              <input id="email" type="email" placeholder="you@email.com" class="field" />
-            </div>
-            <div>
-              <label class="label" for="topic">What's this about?</label>
-              <select id="topic" class="field bg-ryde-black appearance-none cursor-pointer">
-                <option>General question</option>
-                <option>Press inquiry</option>
-                <option>Wholesale</option>
-                <option>Collaboration</option>
-                <option>Just saying hi</option>
-              </select>
-            </div>
-            <div>
-              <label class="label" for="message">Message</label>
-              <textarea id="message" rows="4" placeholder="Tell us what's on your mind..." class="field resize-none"></textarea>
-            </div>
-
-            <button type="button" id="submitBtn" class="cta-shine gold-bg text-ryde-black px-10 py-4 text-xs uppercase tracking-[0.25em] font-bold hover:scale-[1.02] transition-transform mt-4">
-              Send message →
-            </button>
-          </div>
-        </div>
-
-        <!-- Success state -->
-        <div id="successState" class="hidden text-center py-16">
-          <div class="inline-flex items-center justify-center w-20 h-20 rounded-full gold-bg mb-6">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#050505" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
-          </div>
-          <h3 class="font-display text-3xl md:text-4xl mb-3">Message <span class="gold-gradient">received.</span></h3>
-          <p class="text-ryde-bone/60 font-light max-w-sm mx-auto">We'll be in touch soon. Until then — keep moving.</p>
-        </div>
+      <div id="successState" class="hidden text-center py-12">
+        <div class="text-7xl mb-4">🎉</div>
+        <h3 class="font-display text-3xl md:text-4xl mb-3">Got it!</h3>
+        <p class="text-black/60 max-w-sm mx-auto">We'll be in touch within 1-2 days. Until then — keep moving with flavor.</p>
       </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FAQ TEASER -->
+<section class="py-20 md:py-28 px-5 md:px-10 bg-ryde-cream">
+  <div class="max-w-4xl mx-auto text-center">
+    <p class="tag-pill inline-block mb-4 bg-ryde-orange text-white border-ryde-orange">★ FAQ ★</p>
+    <h2 class="font-display text-4xl md:text-6xl mb-8 leading-[1]">Quick <span class="rainbow-y">questions?</span></h2>
+
+    <div class="space-y-4 text-left">
+      <details class="bg-white rounded-2xl p-6 cursor-pointer">
+        <summary class="font-bold text-lg list-none flex justify-between items-center">
+          How long does shipping take?
+          <span class="text-2xl">+</span>
+        </summary>
+        <p class="mt-4 text-black/70 font-light">1-3 working days within Netherlands. Free over €35.</p>
+      </details>
+      <details class="bg-white rounded-2xl p-6 cursor-pointer">
+        <summary class="font-bold text-lg list-none flex justify-between items-center">
+          What's in a mystery box?
+          <span class="text-2xl">+</span>
+        </summary>
+        <p class="mt-4 text-black/70 font-light">5 random international snoepjes, hand-picked by us. Different every drop. Always at least one rare item.</p>
+      </details>
+      <details class="bg-white rounded-2xl p-6 cursor-pointer">
+        <summary class="font-bold text-lg list-none flex justify-between items-center">
+          Can I request specific candy?
+          <span class="text-2xl">+</span>
+        </summary>
+        <p class="mt-4 text-black/70 font-light">For mystery boxes, no — that's the whole point. But you can grab specific drops or email us for special orders.</p>
+      </details>
+      <details class="bg-white rounded-2xl p-6 cursor-pointer">
+        <summary class="font-bold text-lg list-none flex justify-between items-center">
+          Allergies?
+          <span class="text-2xl">+</span>
+        </summary>
+        <p class="mt-4 text-black/70 font-light">Every product comes with its original packaging including ingredient list. Email us before ordering if you have severe allergies.</p>
+      </details>
     </div>
   </div>
 </section>
 
-<!-- ============ FOOTER ============ -->
-<footer class="border-t border-white/5 py-14 px-5 md:px-10 bg-ryde-ink">
+<!-- FOOTER -->
+<footer class="bg-black text-white py-14 px-5 md:px-10">
   <div class="max-w-7xl mx-auto">
     <div class="flex flex-col md:flex-row items-center justify-between gap-8 mb-10">
-      <img src="logo.png" alt="RYDE" class="h-16 w-auto" />
-      <div class="flex items-center gap-5">
-        <a href="#" aria-label="Instagram" class="w-10 h-10 border border-white/15 rounded-full flex items-center justify-center hover:border-ryde-gold hover:text-ryde-goldlight transition">
-    <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5 text-xs text-white/40 uppercase tracking-[0.2em]">
-      <p>© 2026 RYDE. All rights reserved.</p>
-      <p>Move with <span class="text-ryde-goldlight">Flavor</span>.</p>
+      <div class="text-center md:text-left">
+        <img src="logo.png" alt="RYDE" class="h-16 w-auto mx-auto md:mx-0 mb-3 invert" />
+        <p class="text-sm text-white/60">Move with <span class="rainbow-y font-bold">Flavor</span>.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <a href="#" aria-label="Instagram" class="w-12 h-12 bg-ryde-strawberry rounded-full flex items-center justify-center hover:scale-110 transition">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="0.8" fill="currentColor"/></svg>
+        </a>
+        <a href="#" aria-label="TikTok" class="w-12 h-12 bg-ryde-lemon text-black rounded-full flex items-center justify-center hover:scale-110 transition">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M19.6 6.3a4.8 4.8 0 0 1-3.4-1.6V15a5.6 5.6 0 1 1-5.6-5.6c.3 0 .6 0 .9.1v2.9a2.7 2.7 0 1 0 1.9 2.6V2h2.7a4.8 4.8 0 0 0 3.5 4.3v2z"/></svg>
+        </a>
+        <a href="#" aria-label="YouTube" class="w-12 h-12 bg-ryde-apple rounded-full flex items-center justify-center hover:scale-110 transition">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M23 12s0-3.5-.4-5.2a2.8 2.8 0 0 0-2-2C18.8 4.4 12 4.4 12 4.4s-6.8 0-8.6.4a2.8 2.8 0 0 0-2 2C1 8.5 1 12 1 12s0 3.5.4 5.2a2.8 2.8 0 0 0 2 2c1.8.4 8.6.4 8.6.4s6.8 0 8.6-.4a2.8 2.8 0 0 0 2-2c.4-1.7.4-5.2.4-5.2zM9.8 15.4V8.6l5.7 3.4z"/></svg>
+        </a>
+        <a href="#" aria-label="X" class="w-12 h-12 bg-ryde-grape rounded-full flex items-center justify-center hover:scale-110 transition">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M18.9 2H22l-7.5 8.6L23 22h-7l-5.5-7-6.3 7H1l8-9.2L1 2h7.2l5 6.6zm-1.2 18h2L7.4 4H5.3z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/10 text-xs text-white/50">
+      <p>© 2026 RYDE · All rights reserved.</p>
+      <p>Hand-packed with love in NL 🇳🇱</p>
     </div>
   </div>
 </footer>
@@ -205,13 +299,12 @@
   btn.addEventListener('click', () => menu.classList.toggle('closed'));
   menu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => menu.classList.add('closed')));
 
-  // Form submit
   document.getElementById('submitBtn').addEventListener('click', () => {
     const email = document.getElementById('email').value.trim();
     const name = document.getElementById('name').value.trim();
     const message = document.getElementById('message').value.trim();
     if (!email || !name || !message) {
-      alert('Please fill in name, email, and message.');
+      alert('Fill in your name, email and message please!');
       return;
     }
     document.getElementById('formContainer').classList.add('hidden');
